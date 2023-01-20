@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap');
+
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background-color: #1B252F;
+}
+
+.bg-behind {
+  background: linear-gradient(rgba(0,0,0,.3), rgba(27,37,47)), url(https://gamezero.id/wp-content/uploads/2022/07/Anniv.jpg) center center / cover no-repeat ;
+}
+
+#disabledToggle{
+  cursor: pointer;
+}
+
+img{
+  /* width: 150px; */
+  -webkit-filter: drop-shadow(5px 5px 5px #fff);
+  filter: drop-shadow(5px 5px 5px #fff);
+}
+
+.pagination li a{
+  background-color: #243C54;
+  color: #fff;
+}
