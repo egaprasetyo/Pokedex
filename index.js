@@ -174,6 +174,7 @@ $(document).on('click', '#btnSearch',function(){
     $('#contentSearch').attr('hidden', false);
     const searchKey = $('#searchKey').val();
     if(searchKey == ""){
+        location.reload();
         return;
     } else{
         $.ajax({
@@ -201,9 +202,20 @@ $(document).on('click', '#btnSearch',function(){
                 $('#contentSearch').append(content);
             },
             error: function(data){
-                myObj = JSON.parse(data.responseText);
-                errorMessage = myObj.message;
-                console.log(errorMessage);
+                const errorMessage = data.responseText;
+
+                let content = '';
+                content += `
+                    <div class="col d-flex justify-content-center">
+                        <div id="pokemonID" class="card" style="width: 18rem;background-color: #364C60;">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase text-white fw-bold mt-2 mb-2 text-center">${errorMessage}</h5>
+                            </div>
+                        </div>
+                    </div>
+                 `
+
+                $('#contentSearch').append(content);
             },
         });
     }
