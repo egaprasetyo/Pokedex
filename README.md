@@ -1,2 +1,2 @@
 # Pokedex
-Visit this project https://egaprasetyo.github.io/Pokedex/
+Visit this project https://egaprasetyo.github.io/pokedex/
