@@ -172,7 +172,7 @@ $(document).on('click', '#btnSearch',function(){
     $('#contentSearch').empty();
     $('#content').attr('hidden', true);
     $('#contentSearch').attr('hidden', false);
-    const searchKey = $('#searchKey').val();
+    const searchKey = $('#searchKey').val().toLowerCase();
     if(searchKey == ""){
         location.reload();
         return;
