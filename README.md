@@ -1,3 +1,2 @@
 # Pokedex
-Pokemon API
-Test
+Visit this project https://egaprasetyo.github.io/Pokedex/
