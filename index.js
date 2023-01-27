@@ -224,4 +224,3 @@ $(document).on('click', '#btnSearch',function(){
 
 
 pokemonList();
-// console.log(getPokedex(2));
