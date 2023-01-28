@@ -8,6 +8,7 @@ const pokemonList = async(offset = 0, limit=20, idPokemon = 1) => {
     let url = 'https://pokeapi.co/api/v2/pokemon?offset=' + offset + '&limit=' + limit;
 
     try {
+        showLoadingImageContent();
         let res = await fetch(url);
         let result = await res.json();
         let content = '';
@@ -40,6 +41,7 @@ const pokemonList = async(offset = 0, limit=20, idPokemon = 1) => {
             `
         }
         $('#content').append(content);
+        hideLoadingImageContent()
     } catch (error) {
         console.log(error);
     }
@@ -168,6 +170,7 @@ $(document).on('click', '.previous', function(){
 
 // Search
 $(document).on('click', '#btnSearch',function(){
+    $('#navpage').attr("hidden", true);
     $('#content').empty();
     $('#contentSearch').empty();
     $('#content').attr('hidden', true);
@@ -177,18 +180,20 @@ $(document).on('click', '#btnSearch',function(){
         location.reload();
         return;
     } else{
+        showLoadingImage();
         $.ajax({
             url: 'https://pokeapi.co/api/v2/pokemon/' + searchKey,
             type: 'GET',
             dataType: 'json',
             success: function(data){
+                
                 let content = '';
                 content += `
                 <div class="col d-flex justify-content-center">
                     <div id="pokemonID" class="card" style="width: 18rem;background-color: #364C60;">
                         <img src="${data.sprites.front_default}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title text-uppercase text-white fw-bold mt-2 mb-2">${data.name}</h5>
+                            <h5 class="card-title text-capitalize text-white fw-bold mt-2 mb-2">${data.name}</h5>
                             ${
                                 data.types.map(function(item){
                                     return `<span class="badge me-1 mb-1" style="background-color: ${typeBadgeColor(item.type.name)}; height: 23px; width:60px;">${item.type.name}</span>`
@@ -200,8 +205,11 @@ $(document).on('click', '#btnSearch',function(){
                 </div>
             `
                 $('#contentSearch').append(content);
+                hideLoadingImage()
             },
             error: function(data){
+                hideLoadingImageContent()
+                hideLoadingImage()
                 const errorMessage = data.responseText;
 
                 let content = '';
@@ -216,11 +224,41 @@ $(document).on('click', '#btnSearch',function(){
                  `
 
                 $('#contentSearch').append(content);
+               
             },
         });
     }
 
 });
 
+function showLoadingImage() {
+    const loading = `
+    <div id="loading-image" class="col d-flex justify-content-center">
+        <div id="pokemonID" class="card" style="width: 18rem;background-color: #364C60;">
+            <div class="card-body text-center">
+                <div class="spinner-border text-primary text-center" role="status"><span class="visually-hidden">Loading...</span></div>
+            </div>
+        </div>
+    </div>
+    `
+    $('#contentSearch').append(loading);
+}
+
+function hideLoadingImage() {
+    $('#loading-image').remove();
+}
+
+function showLoadingImageContent() {
+    const content = `
+        <div id="loading-image-content" class="col text-center">
+            <div class="spinner-border text-primary text-center" role="status"><span class="visually-hidden">Loading...</span></div>
+        </div>
+    `
+    $('#loadingScreen').append(content);
+}
+
+function hideLoadingImageContent() {
+    $('#loading-image-content').remove();
+}
 
 pokemonList();
